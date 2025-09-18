@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'exchange_rate' => [
+        'url' => env('EXCHANGE_RATE_API_URL', 'https://api.exchangerate-api.com/v4/latest/ARS'),
+    ],
+
 ];
