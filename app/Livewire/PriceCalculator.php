@@ -18,7 +18,7 @@ class PriceCalculator extends Component
     public $description;
     public $base_price;
     public $base_currency = 'ARS'; // Valor por defecto
-    public $unit;
+    public $unit = '';
     public $quantity;
     public $iva_rate = 21;
     public $profit_margin = 25;
@@ -34,7 +34,7 @@ class PriceCalculator extends Component
         'description' => 'nullable|string',
         'base_price' => 'required|numeric|min:0',
         'base_currency' => 'required|string',
-        'unit' => 'required|string|max:255',
+        'unit' => 'required|string|in:Global,m,m²,m³',
         'quantity' => 'required|integer|min:1',
         'iva_rate' => 'required|numeric|min:0',
         'profit_margin' => 'required|numeric|min:0',

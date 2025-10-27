@@ -42,7 +42,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label for="unit" class="block text-sm font-medium text-gray-700">Unidad</label>
-                <input type="text" id="unit" wire:model="unit" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select id="unit" wire:model="unit" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="" disabled>Seleccione la unidad</option>
+                        <option value="Global">Global</option>
+                        <option value="m">m (Metro)</option>
+                        <option value="m²">m² (Metro Cuadrado)</option>
+                        <option value="m³">m³ (Metro Cúbico)</option>
+                </select>
                 @error('unit') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
 
