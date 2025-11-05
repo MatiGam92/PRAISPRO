@@ -6,6 +6,7 @@ use App\Livewire\Buscador;
 use App\Models\Producto;
 
 Route::view('/', 'welcome');
+Route::view('/ia-team', 'ia-team');
 
 // Redirige la ruta por defecto 'dashboard' a tu calculadora.
 Route::redirect('/dashboard', '/calcular-precio')->name('dashboard');
