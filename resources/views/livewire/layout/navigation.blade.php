@@ -11,78 +11,60 @@ new class extends Component
     public function logout(Logout $logout): void
     {
         $logout();
+
         $this->redirect('/', navigate: true);
     }
 };
 ?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-[#1A1A1D] border-b border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
+            
             {{-- Logo y enlaces principales --}}
             <div class="flex items-center">
+                {{-- Logo PRAISPRO --}}
                 <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    {{-- Usa aquí tu componente de logo o un texto estilizado --}}
+                    <span class="text-2xl font-extrabold text-green-500 tracking-wider">PRAISPRO</span>
                 </a>
 
+                {{-- Enlaces de navegación principales (opcional si ya están en el dashboard) --}}
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                    <x-nav-link :href="route('price.calculator')" :active="request()->routeIs('price.calculator')" wire:navigate class="text-white hover:text-green-500">
                         {{ __('Calculadora') }}
+                    </x-nav-link>
+                    {{-- Puedes añadir más enlaces aquí si lo necesitas --}}
+                    <x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-500">
+                        {{ __('Buscador') }}
                     </x-nav-link>
                 </div>
             </div>
 
-            {{-- Menú de usuario --}}
+            
+            {{-- Botón de Cierre de Sesión (Escritorio) --}}
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md 
-                                   text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
-                                 x-text="name"
-                                 x-on:profile-updated.window="name = $event.detail.name"></div>
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 
-                                          111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0-1.414z"
-                                          clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        {{-- Historial --}}
-                        <x-dropdown-link :href="route('dashboard')" wire:navigate>
-                            {{ __('Historial') }}
-                        </x-dropdown-link>
-
-                        {{-- Buscador --}}
-                        <x-dropdown-link :href="route('buscador')" wire:navigate>
-                            {{ __('Buscador') }}
-                        </x-dropdown-link>
-
-                        {{-- Separador visual --}}
-                        <div class="border-t border-gray-200 my-2"></div>
-
-                        {{-- Cerrar sesión --}}
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Cerrar sesión') }}
-                            </x-dropdown-link>
-                        </button>
-                    </x-slot>
-                </x-dropdown>
+                <button wire:click="logout" 
+                    title="{{ __('Cerrar sesión') }}"
+                    class="p-2 bg-green-600 hover:bg-red-700 text-white rounded-full 
+                           shadow-md transition duration-150 ease-in-out focus:outline-none 
+                           focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1D]">
+                    
+                    {{-- Icono de Lucide (puerta de salida/logout) --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                </button>
             </div>
 
-            {{-- Botón móvil --}}
+            {{-- Botón móvil para abrir el menú --}}
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 
-                               hover:text-gray-500 hover:bg-gray-100 focus:outline-none 
-                               focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                                hover:text-white hover:bg-[#2A2A2D] focus:outline-none 
+                                focus:bg-[#2A2A2D] focus:text-white transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open}"
                               class="inline-flex"
@@ -103,29 +85,28 @@ new class extends Component
     </div>
 
     {{-- Menú responsive --}}
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#1A1A1D]">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate class="text-white">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            {{-- Añade aquí más responsive links si los necesitas --}}
         </div>
 
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-700">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800"
+                {{-- Nombre de usuario y email (Móvil) --}}
+                <div class="font-medium text-base text-white"
                      x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
                      x-text="name"
                      x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                <div class="font-medium text-sm text-gray-400">{{ auth()->user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('buscador')" wire:navigate>
-                    {{ __('Buscador') }}
-                </x-responsive-nav-link>
-
+                {{-- Botón de Cerrar Sesión (Móvil) --}}
                 <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
+                    <x-responsive-nav-link class="text-white hover:bg-[#2A2A2D]">
                         {{ __('Cerrar sesión') }}
                     </x-responsive-nav-link>
                 </button>

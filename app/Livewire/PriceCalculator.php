@@ -95,7 +95,7 @@ class PriceCalculator extends Component
     }
 
     
-    //protected static string $layout = 'layouts.app';
+    
     
     public function render()
     {

@@ -34,5 +34,17 @@
             </main>
         </div>
         @livewireScripts
+
+        {{-- Footer Fijo y Centrado --}}
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black text-center z-10">
+        <p class="text-sm text-gray-400">
+            PRAISPRO® - Todos los derechos reservados | Desarrollado por
+            {{-- Link para IA-Team --}}
+            <a href="{{ url('/ia-team') }}"
+               class="font-bold text-gray-200 hover:text-green-500 transition duration-300">
+                IA-Team
+            </a>
+        </p>
+    </footer>
     </body>
 </html>

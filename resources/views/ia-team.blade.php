@@ -22,7 +22,7 @@
     <div class="min-h-screen flex flex-col items-center justify-center bg-red-800 py-16 px-4">
 
         <!-- Contenedor Principal del Equipo (Centrado y Grande) -->
-        <div class="bg-gray-900 p-6 sm:p-10 rounded-xl shadow-2xl max-w-2xl w-full text-center">
+        <div class="bg-black p-6 sm:p-10 rounded-xl shadow-2xl max-w-2xl w-full text-center">
 
             <!-- Título Principal -->
             <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-10 border-b-4 border-green-500 pb-3 inline-block">
@@ -37,14 +37,14 @@
                     
                     <!-- Foto de Perfil (Placeholder) -->
                     <img src="https://placehold.co/120x120/374151/ffffff?text=JP" 
-                         alt="Foto de Juan Pérez" 
+                         alt="Foto de Estefanía Montiel" 
                          class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-green-500/80" 
                          onerror="this.onerror=null; this.src='https://placehold.co/120x120/374151/ffffff?text=JP';">
                     
                     <!-- Información del Miembro -->
                     <div class="flex-grow text-center sm:text-left">
-                        <h2 class="text-3xl font-bold text-white mb-1">Juan Pérez</h2>
-                        <p class="text-md text-gray-400 italic">Desarrollador Backend y Lógica de Precios</p>
+                        <h2 class="text-3xl font-bold text-white mb-1">Estefanía Montiel</h2>
+                        <p class="text-md text-gray-400 italic">Desarrolladora Full-Stack y DBA</p>
                         
                         <!-- Íconos de Redes Sociales -->
                         <div class="flex justify-center sm:justify-start space-x-5 mt-3">
@@ -69,14 +69,14 @@
                     
                     <!-- Foto de Perfil (Placeholder) -->
                     <img src="https://placehold.co/120x120/374151/ffffff?text=MG" 
-                         alt="Foto de María Gómez" 
+                         alt="Foto de Lucas Oviedo" 
                          class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-green-500/80"
                          onerror="this.onerror=null; this.src='https://placehold.co/120x120/374151/ffffff?text=MG';">
                     
                     <!-- Información del Miembro -->
                     <div class="flex-grow text-center sm:text-left">
-                        <h2 class="text-3xl font-bold text-white mb-1">María Gómez</h2>
-                        <p class="text-md text-gray-400 italic">Diseñadora UI/UX y Estrategia de Marca</p>
+                        <h2 class="text-3xl font-bold text-white mb-1">Lucas Oviedo</h2>
+                        <p class="text-md text-gray-400 italic">Desarrollador Full-Stack y Diseñador UX/UI</p>
                         
                         <!-- Íconos de Redes Sociales -->
                         <div class="flex justify-center sm:justify-start space-x-5 mt-3">
@@ -101,14 +101,14 @@
                     
                     <!-- Foto de Perfil (Placeholder) -->
                     <img src="https://placehold.co/120x120/374151/ffffff?text=CR" 
-                         alt="Foto de Carlos Ruiz" 
+                         alt="Foto de Matías Gamarra" 
                          class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-green-500/80"
                          onerror="this.onerror=null; this.src='https://placehold.co/120x120/374151/ffffff?text=CR';">
                     
                     <!-- Información del Miembro -->
                     <div class="flex-grow text-center sm:text-left">
-                        <h2 class="text-3xl font-bold text-white mb-1">Carlos Ruiz</h2>
-                        <p class="text-md text-gray-400 italic">Desarrollador Frontend y Interfaz de Usuario</p>
+                        <h2 class="text-3xl font-bold text-white mb-1">Matías Gamarra</h2>
+                        <p class="text-md text-gray-400 italic">Desarrollador Full-Stack y PM</p>
                         
                         <!-- Íconos de Redes Sociales -->
                         <div class="flex justify-center sm:justify-start space-x-5 mt-3">
@@ -138,7 +138,7 @@
     </div>
 
     <!-- Footer Fijo y Centrado (Mismo estilo que el original) -->
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-gray-900 text-center z-10">
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black text-center z-10">
         <p class="text-sm text-gray-400">
             PRAISPRO® - Todos los derechos reservados | Desarrollado por
             <a href="#" class="font-bold text-gray-200 hover:text-green-500 transition duration-300">

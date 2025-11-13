@@ -23,14 +23,14 @@
         {{-- ----------------------------------------------------- --}}
         <header class="text-center mb-8">
             <h1 class="text-5xl sm:text-6xl font-extrabold text-white">
-                Bienvenido a <span class="text-green-400">PRAISPRO</span>
+                Bienvenido a <span class="text-green-500">PRAISPRO</span>
             </h1>
             <p class="text-xl text-gray-200 mt-2">Tu solución profesional para el cálculo de precios.</p>
         </header>
 
 
         {{-- Contenedor de la Nota (Centrado) --}}
-        <div class="bg-gray-900 p-8 sm:p-12 rounded-xl shadow-2xl max-w-lg w-full text-center mx-4 border-b-4 border-green-500">
+        <div class="bg-black p-8 sm:p-12 rounded-xl shadow-2xl max-w-lg w-full text-center mx-4 border-b-4 border-green-500">
 
             {{-- Aquí ahora solo queda la llamada a la acción --}}
             <h1 class="text-3xl sm:text-3xl font-extrabold text-white mb-8">
@@ -56,7 +56,7 @@
     </div>
 
     {{-- Footer Fijo y Centrado --}}
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-gray-900 text-center z-10">
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black text-center z-10">
         <p class="text-sm text-gray-400">
             PRAISPRO® - Todos los derechos reservados | Desarrollado por
             {{-- Link para IA-Team --}}
