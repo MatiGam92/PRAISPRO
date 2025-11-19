@@ -1,0 +1,34 @@
+name: CI PRAISPRO
+
+on:
+  push:
+    branches: ["main", "develop"]
+
+jobs:
+  build_test_quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, pdo, mysql
+
+      - name: Instalar dependencias Composer
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Instalar dependencias NPM
+        run: npm install
+
+      - name: Compilar assets
+        run: npm run build
+
+      - name: Ejecutar tests
+        run: php artisan test
+
+      - name: Ejecutar Pint (quality)
+        run: vendor/bin/pint --test
