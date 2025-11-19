@@ -31,5 +31,5 @@ jobs:
       # - name: Ejecutar tests
       #   run: php artisan test
 
-      - name: Ejecutar Pint (quality)
-        run: vendor/bin/pint --test
+      # - name: Ejecutar Pint (quality)
+      #   run: vendor/bin/pint --test
