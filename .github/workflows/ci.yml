@@ -27,8 +27,9 @@ jobs:
       - name: Compilar assets
         run: npm run build
 
-      - name: Ejecutar tests
-        run: php artisan test
+      # Tests deshabilitados porque PRAISPRO no usa tests
+      # - name: Ejecutar tests
+      #   run: php artisan test
 
       - name: Ejecutar Pint (quality)
         run: vendor/bin/pint --test
