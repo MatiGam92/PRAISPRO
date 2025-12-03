@@ -33,7 +33,7 @@
         </header>
 
         {{-- Contenedor negro central --}}
-        <div class="bg-black/90 p-8 sm:p-12 rounded-xl shadow-2xl max-w-lg w-full text-center mx-4 border-b-4 border-green-800">
+        <div class="bg-black/90 p-8 sm:p-10 rounded-xl shadow-2xl max-w-lg w-full text-center mx-4 border-b-4 border-green-800">
             <h1 class="text-3xl sm:text-3xl font-extrabold text-white mb-8">
                 ¡ Accedé y empezá a calcular tus precios !
             </h1>
@@ -43,6 +43,16 @@
                class="inline-block px-10 py-4 bg-[#0E3D28] hover:bg-green-700 text-white text-xl font-semibold rounded-lg transition duration-300 shadow-xl transform hover:scale-105">
                 Acceder
             </a>
+
+            {{-- Nuevo Link "Manual de usuario" --}}
+            <div class="mt-4">
+                <a href="{{ asset('manual/Manual de usuario - PRAISPRO.pdf') }}"
+                    target="_blank"
+                    class="text-gray-400 hover:text-green-500 text-base font-medium transition duration-300 underline">
+                    Manual de usuario
+                </a>
+            </div>
+            
         </div>
 
     </div>

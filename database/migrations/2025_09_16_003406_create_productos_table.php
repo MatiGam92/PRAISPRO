@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('base_currency');
             $table->string('unit');
             $table->integer('quantity');
-            $table->decimal('iva_rate', 5, 2)->default(21.00);
-            $table->decimal('profit_margin', 5, 2)->default(25.00);
+            $table->decimal('iva_rate', 5, 2)->nullable;
+            $table->decimal('profit_margin', 5, 2)->nullable;
             $table->string('final_currency');
             $table->decimal('final_price', 10, 2)->nullable();
             $table->timestamps();

@@ -24,8 +24,8 @@
         <div class="max-w-6xl w-full bg-black/90 p-8 rounded-xl shadow-2xl">
 
             <!-- Título -->
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-10 text-center border-b-4 border-green-500 pb-3">
-                <span class="text-green-500">IA</span>-Team
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-10 text-center border-b-4 border-green-900 pb-3">
+                <span class="text-green-900">IA</span>-Team
             </h1>
 
             <!-- Cards de integrantes: apaisados y compactos -->
@@ -73,7 +73,7 @@
 
                 <!-- Integrante 3 -->
                 <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center text-center transition duration-300 hover:bg-gray-700/50">
-                    <img src="https://placehold.co/120x120/374151/ffffff?text=MG" 
+                    <img src="{{ asset('images/Matias.jpeg') }}" 
                          alt="Matías Gamarra"
                          class="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-green-500/80 mb-4">
                     <h2 class="text-xl font-bold text-white mb-1">Matías Gamarra</h2>

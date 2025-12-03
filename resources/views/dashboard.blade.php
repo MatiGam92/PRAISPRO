@@ -1,14 +1,14 @@
 <x-app-layout>
 
     {{-- Contenedor principal: ocupa todo el alto disponible entre navbar y footer --}}
-    <div class="flex-1 flex items-center justify-center px-4 py-6">
+    <div class="flex-1 flex items-center justify-center px-4 py-2">
 
         <div class="max-w-xl w-full bg-black/90 backdrop-blur-md p-8 rounded-lg shadow-2xl">
 
             <div class="flex flex-col items-center space-y-8">
 
                 {{-- Cuadro del Precio del Dólar --}}
-                <div class="w-full p-6 bg-gray-700/90 shadow-xl rounded-lg border border-black">
+                <div class="w-full p-4 bg-gray-700/90 shadow-xl rounded-lg border border-black">
                     <h3 class="text-xl font-bold text-white mb-4 text-center">
                         💵 Precio Actual del Dólar
                     </h3>

@@ -109,10 +109,6 @@ new class extends Component
                 {{ __('Historial') }}
             </x-responsive-nav-link>
 
-            {{-- Manual de Usuario --}}
-            <x-responsive-nav-link :href="url('/manual/manual-usuario.pdf')" class="text-white" download>
-                {{ __('Manual de Usuario') }}
-            </x-responsive-nav-link>
         </div>
 
         <div class="pt-4 pb-1 border-t border-gray-700">
