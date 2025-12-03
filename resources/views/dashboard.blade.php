@@ -1,78 +1,66 @@
-<x-app-layout>
-    {{-- La cabecera (Header) se deja vacía. El menú y Logout se gestionan en 'navigation.blade.php' --}}
+<?php
 
-    {{-- Contenido Principal con Fondo Rojo/Borgoña (bg-[#881A1C]) --}}
-    <div class="py-12 min-h-screen bg-red-800">
-        {{-- Contenedor más estrecho (max-w-xl) para centrar y concentrar el contenido --}}
-        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
-            
-            {{-- Caja contenedora negra (bg-[#1A1A1D]) --}}
-            <div class="p-8 bg-[#1A1A1D] overflow-hidden shadow-2xl rounded-lg">
-                
-                {{-- Contenedor FLEX para apilar los elementos verticalmente (flex-col) y centrarlos --}}
-                <div class="flex flex-col items-center space-y-8">
-                    
-                    {{-- 1. Cuadro del Precio del Dólar (Grande y Centrado) --}}
-                    <div class="w-full p-6 bg-gray-800 shadow-xl rounded-lg border-2 border-gray-700">
-                        <h3 class="text-xl font-bold text-white mb-4 text-center">
-                            💵 Precio Actual del Dólar
-                        </h3>
-                        
-                        <div class="text-center">
-                            {{-- Placeholder del valor, grande y en color destacado --}}
-                            <p class="text-5xl font-extrabold text-green-500">
-                                $XX.XX
-                            </p>
-                            <p class="text-sm text-gray-400 mt-2">
-                                (Última actualización: <span class="font-mono">HH:MM</span>)
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">
-                                Fuente: API (implementar con Livewire)
-                            </p>
-                        </div>
-                    </div>
+// NOTA IMPORTANTE: Si usas Livewire 3 (el estándar actual),
+// el namespace correcto DEBERÍA ser 'App\Livewire'
+// En versiones antiguas (Livewire 2), a veces es 'App\Http\Livewire'
+// Por favor, verifica tu versión de Livewire y ajusta el namespace si es necesario.
+// Si el componente no funciona, cambia App\Http\Livewire a App\Livewire
 
-                    {{-- 2. Botones de Navegación (Debajo del Dólar) --}}
-                    {{-- Los botones se apilan en una columna --}}
-                    <div class="w-full grid grid-cols-1 gap-4">
-                        
-                        {{-- Botón 1: Calculadora --}}
-                        <a href="{{ route('price.calculator') }}" 
-                           class="flex items-center justify-center py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-150 ease-in-out transform hover:scale-[1.03]">
-                            <span class="text-2xl mr-3">🧮</span>
-                            <span>Calculadora de Precios</span>
-                        </a>
+namespace App\Http\Livewire; // 🚨 ¡ATENCIÓN! Si usas Livewire 3, probablemente esto es App\Livewire
 
-                        {{-- Botón 2: Historial (INHABILITADO/COMENTADO) --}}
-                        {{-- 
-                        <a href="{{ route('history') }}" 
-                           class="flex items-center justify-center py-4 bg-gray-600 text-gray-300 font-bold rounded-lg shadow-lg transition duration-150 ease-in-out cursor-not-allowed opacity-75">
-                            <span class="text-2xl mr-3">📜</span>
-                            <span>Historial (Próximamente)</span>
-                        </a> 
-                        --}}
-                        
-                        {{-- Botón 3: Buscador --}}
-                        <a href="{{ route('buscador') }}" 
-                           class="flex items-center justify-center py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-150 ease-in-out transform hover:scale-[1.03]">
-                            <span class="text-2xl mr-3">🔎</span>
-                            <span>Buscador</span>
-                        </a>
-                    </div>
-                </div> {{-- Fin de flex-col --}}
-            </div>
-        </div>
-    </div>
-    
-    {{-- Footer Fijo y Centrado --}}
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black  text-center z-10">
-        <p class="text-sm text-gray-400">
-            PRAISPRO® - Todos los derechos reservados | Desarrollado por
-            {{-- Link para IA-Team --}}
-            <a href="{{ url('/ia-team') }}"
-               class="font-bold text-gray-200 hover:text-green-500 transition duration-300">
-                IA-Team
-            </a>
-        </p>
-    </footer>
-</x-app-layout>
+use Livewire\Component;
+use Illuminate\Support\Facades\Http;
+
+class DollarRate extends Component
+{
+    // Las propiedades se inicializan a null para que Blade las encuentre inmediatamente.
+    public $rate = null;
+    public $lastUpdated = null;
+
+    /**
+     * Se ejecuta cuando el componente se inicializa.
+     */
+    public function mount()
+    {
+        // Llamamos a fetchRate para cargar los datos apenas se monte el componente.
+        $this->fetchRate();
+    }
+
+    /**
+     * Obtiene la tasa de cambio actual desde una API externa.
+     */
+    public function fetchRate()
+    {
+        // Usamos un bloque try-catch para manejar errores de conexión o de la API
+        try {
+            $response = Http::timeout(5)->get('https://api.exchangerate.host/latest?base=USD&symbols=ARS');
+
+            if ($response->successful()) {
+                $data = $response->json();
+                // Verificación de que el índice 'ARS' existe en 'rates'
+                if (isset($data['rates']['ARS'])) {
+                    // Formateamos la tasa con dos decimales para mejor visualización
+                    $this->rate = number_format($data['rates']['ARS'], 2);
+                    $this->lastUpdated = now()->setTimezone('America/Argentina/Buenos_Aires')->format('H:i:s');
+                } else {
+                    // Log o manejo de error si el símbolo no está presente
+                    \Log::warning('Símbolo ARS no encontrado en la respuesta de la API.');
+                }
+            } else {
+                // Manejo de errores de HTTP (ej: 404, 500)
+                \Log::error('Error al consultar la API de tipo de cambio: ' . $response->status());
+            }
+        } catch (\Exception $e) {
+            // Manejo de errores de conexión (ej: timeout)
+            \Log::error('Excepción al obtener el tipo de cambio: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Renderiza la vista del componente.
+     */
+    public function render()
+    {
+        return view('livewire.dollar-rate');
+    }
+}

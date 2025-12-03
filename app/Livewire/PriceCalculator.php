@@ -3,31 +3,32 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Producto;
-use Illuminate\Support\Facades\Http;
-use App\Services\ExchangeRateService;
 use Livewire\WithFileUploads;
+use App\Models\Producto;
+use App\Services\ExchangeRateService;
 
 class PriceCalculator extends Component
 {
-    
     use WithFileUploads;
-    
+
+    public $producto_id;
+
     public $name;
     public $photo;
     public $description;
     public $base_price;
-    public $base_currency = 'ARS'; // Valor por defecto
+    public $base_currency = 'ARS';
     public $unit = '';
     public $quantity;
     public $iva_rate = 21;
     public $profit_margin = 25;
-    public $final_currency = 'ARS'; // Valor por defecto
+    public $final_currency = 'ARS';
 
     public $exchangeRates = [];
     public $final_price;
-    
-    // Reglas de validación
+
+    public $existingPhoto;
+
     protected $rules = [
         'name' => 'required|string|max:255',
         'photo' => 'nullable|image|max:5020',
@@ -41,65 +42,100 @@ class PriceCalculator extends Component
         'final_currency' => 'required|string',
     ];
 
-    public function mount(ExchangeRateService $exchangeRateService)
+    public function mount($producto = null)
     {
-        // Inyecta el servicio y usa su método para obtener las cotizaciones
-        $this->exchangeRates = $exchangeRateService->getRates();
+        // Cargar cotizaciones
+        $this->exchangeRates = (new ExchangeRateService())->getRates();
+
+        // Modo edición: precargar datos
+        if ($producto) {
+            $producto = Producto::find($producto);
+            if ($producto) {
+                $this->producto_id = $producto->id;
+                $this->name = $producto->name;
+                $this->description = $producto->description;
+                $this->base_price = $producto->base_price;
+                $this->base_currency = $producto->base_currency;
+                $this->unit = $producto->unit;
+                $this->quantity = $producto->quantity;
+                $this->iva_rate = $producto->iva_rate;
+                $this->profit_margin = $producto->profit_margin;
+                $this->final_currency = $producto->final_currency;
+                $this->final_price = $producto->final_price;
+                $this->existingPhoto = $producto->photo;
+            }
+        }
     }
-
-
 
     public function calculateAndSave()
     {
         $this->validate();
 
-        // 1. Convert base price to a standard currency (USD) for calculation consistency.
-    $rateToBase = $this->exchangeRates[$this->base_currency] ?? 1;
-    $priceInUsd = $this->base_price / $rateToBase;
+        // 1) Convertir precio base a USD
+        $rateToBase = $this->exchangeRates[$this->base_currency] ?? 1;
+        $priceInUsd = $this->base_price / $rateToBase;
 
-    // 2. Calculate the total cost including quantity.
-    $totalCost = $priceInUsd * $this->quantity;
+        // 2) Total por cantidad
+        $totalCost = $priceInUsd * $this->quantity;
 
-    // 3. Apply IVA (21%). This is typically a tax on the product's cost.
-    $costWithIva = $totalCost * (1 + ($this->iva_rate / 100));
+        // 3) Aplicar IVA
+        $costWithIva = $totalCost * (1 + ($this->iva_rate / 100));
 
-    // 4. Apply the profit margin (25%) on top of the cost with IVA.
-    $priceWithProfit = $costWithIva * (1 + ($this->profit_margin / 100));
+        // 4) Aplicar ganancia
+        $priceWithProfit = $costWithIva * (1 + ($this->profit_margin / 100));
 
-    // 5. Convert the final calculated price back to the desired final currency.
-    $rateToFinal = $this->exchangeRates[$this->final_currency] ?? 1;
-    $this->final_price = $priceWithProfit * $rateToFinal;
+        // 5) Convertir al currency final
+        $rateToFinal = $this->exchangeRates[$this->final_currency] ?? 1;
+        $this->final_price = $priceWithProfit * $rateToFinal;
 
-        // Guardar el producto en la base de datos
-        $producto = Producto::create([
-            'name' => $this->name,
-            'description' => $this->description,
-            'base_price' => $this->base_price,
-            'base_currency' => $this->base_currency,
-            'unit' => $this->unit,
-            'quantity' => $this->quantity,
-            'iva_rate' => $this->iva_rate,
-            'profit_margin' => $this->profit_margin,
-            'final_currency' => $this->final_currency,
-            'final_price' => $this->final_price,
-        ]);
-        
-        // Manejar la carga de la imagen
+        // Guardar o actualizar
+        if ($this->producto_id) {
+            $producto = Producto::find($this->producto_id);
+            $producto->update([
+                'name' => $this->name,
+                'description' => $this->description,
+                'base_price' => $this->base_price,
+                'base_currency' => $this->base_currency,
+                'unit' => $this->unit,
+                'quantity' => $this->quantity,
+                'iva_rate' => $this->iva_rate,
+                'profit_margin' => $this->profit_margin,
+                'final_currency' => $this->final_currency,
+                'final_price' => $this->final_price,
+            ]);
+        } else {
+            $producto = Producto::create([
+                'name' => $this->name,
+                'description' => $this->description,
+                'base_price' => $this->base_price,
+                'base_currency' => $this->base_currency,
+                'unit' => $this->unit,
+                'quantity' => $this->quantity,
+                'iva_rate' => $this->iva_rate,
+                'profit_margin' => $this->profit_margin,
+                'final_currency' => $this->final_currency,
+                'final_price' => $this->final_price,
+                'user_id' => auth()->id(),
+            ]);
+        }
+
+        // Manejar foto
         if ($this->photo) {
             $imagePath = $this->photo->store('photos', 'public');
             $producto->photo = $imagePath;
             $producto->save();
+        } elseif ($this->existingPhoto) {
+            // Mantener foto existente
+            $producto->photo = $this->existingPhoto;
+            $producto->save();
         }
 
-        return redirect()->route('productos.show', $producto->id);
+        return redirect()->route('historial.index');
     }
 
-    
-    
-    
     public function render()
     {
         return view('livewire.price-calculator')
-        ->layout('layouts.app');
+            ->layout('layouts.app');
     }
 }

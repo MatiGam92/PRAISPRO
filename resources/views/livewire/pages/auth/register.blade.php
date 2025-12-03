@@ -36,53 +36,87 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div>
+<div class="bg-gray-600 p-8 sm:p-5 rounded-xl shadow-2xl border-b-4 border-[#0E3D28] text-white">
+
     <form wire:submit="register">
+
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="name" :value="__('Nombre de usuario')" class="text-white" />
+            <x-text-input
+                wire:model="name"
+                id="name"
+                type="text"
+                name="name"
+                required autofocus autocomplete="name"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md
+                       focus:ring-red-700 focus:border-red-700"
+            />
+            <x-input-error :messages="$errors->get('name')" class="mt-2 text-red-400" />
         </div>
 
-        <!-- Email Address -->
+        <!-- Email -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="email" :value="__('Email')" class="text-white" />
+            <x-text-input
+                wire:model="email"
+                id="email"
+                type="email"
+                name="email"
+                required autocomplete="username"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md
+                       focus:ring-red-700 focus:border-red-700"
+            />
+            <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Contraseña')" class="text-white" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-text-input
+                wire:model="password"
+                id="password"
+                type="password"
+                name="password"
+                required autocomplete="new-password"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md
+                       focus:ring-red-700 focus:border-red-700"
+            />
+            <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" class="text-white" />
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-text-input
+                wire:model="password_confirmation"
+                id="password_confirmation"
+                type="password"
+                name="password_confirmation"
+                required autocomplete="new-password"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md
+                       focus:ring-red-700 focus:border-red-700"
+            />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-red-400" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}" wire:navigate>
-                {{ __('Already registered?') }}
+        <div class="flex items-center justify-between mt-6">
+
+            <a href="{{ route('login') }}" wire:navigate
+               class="underline text-sm font-semibold text-white hover:text-red-700 transition">
+                {{ __('¿Ya tenés cuenta?') }}
             </a>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+            <button
+                type="submit"
+                class="px-5 py-3 bg-[#0E3D28] hover:bg-green-700 text-white font-semibold rounded-md shadow-lg
+                       transition transform hover:scale-105">
+                {{ __('Registrarme') }}
+            </button>
         </div>
+
     </form>
 </div>
+

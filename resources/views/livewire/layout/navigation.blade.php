@@ -17,40 +17,46 @@ new class extends Component
 };
 ?>
 
-<nav x-data="{ open: false }" class="bg-[#1A1A1D] border-b border-gray-800">
+<nav x-data="{ open: false }" class="bg-black/90 border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            
+
             {{-- Logo y enlaces principales --}}
             <div class="flex items-center">
                 {{-- Logo PRAISPRO --}}
                 <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center">
-                    {{-- Usa aquí tu componente de logo o un texto estilizado --}}
-                    <span class="text-2xl font-extrabold text-green-500 tracking-wider">PRAISPRO</span>
+                    <x-praispro-logo class="h-16 w-auto" />
                 </a>
 
-                {{-- Enlaces de navegación principales (opcional si ya están en el dashboard) --}}
+                {{-- Enlaces de navegación principales --}}
                 <div class="hidden space-x-8 sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('price.calculator')" :active="request()->routeIs('price.calculator')" wire:navigate class="text-white hover:text-green-500">
+                    <x-nav-link :href="route('calculator')" :active="request()->routeIs('calculator')" wire:navigate class="text-white hover:text-green-700">
                         {{ __('Calculadora') }}
                     </x-nav-link>
-                    {{-- Puedes añadir más enlaces aquí si lo necesitas --}}
-                    <x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-500">
+
+                    <x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-700">
                         {{ __('Buscador') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white hover:text-green-700">
+                        {{ __('Historial') }}
+                    </x-nav-link>
+
+                    {{-- Nuevo enlace: Manual de Usuario --}}
+                    <x-nav-link :href="url('/manual/manual-usuario.pdf')" target="_blank" class="text-white hover:text-green-700" download>
+                        {{ __('Manual de Usuario') }}
                     </x-nav-link>
                 </div>
             </div>
 
-            
             {{-- Botón de Cierre de Sesión (Escritorio) --}}
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <button wire:click="logout" 
-                    title="{{ __('Cerrar sesión') }}"
-                    class="p-2 bg-green-600 hover:bg-red-700 text-white rounded-full 
-                           shadow-md transition duration-150 ease-in-out focus:outline-none 
-                           focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1D]">
-                    
-                    {{-- Icono de Lucide (puerta de salida/logout) --}}
+                        title="{{ __('Cerrar sesión') }}"
+                        class="p-2 bg-green-900 hover:bg-red-700 text-white rounded-full 
+                               shadow-md transition duration-150 ease-in-out focus:outline-none 
+                               focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1D]">
+                    {{-- Icono de Lucide (logout) --}}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                         <polyline points="16 17 21 12 16 7"/>
@@ -90,7 +96,23 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate class="text-white">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            {{-- Añade aquí más responsive links si los necesitas --}}
+
+            <x-responsive-nav-link :href="route('calculator')" :active="request()->routeIs('calculator')" wire:navigate class="text-white">
+                {{ __('Calculadora') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white">
+                {{ __('Buscador') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white">
+                {{ __('Historial') }}
+            </x-responsive-nav-link>
+
+            {{-- Manual de Usuario --}}
+            <x-responsive-nav-link :href="url('/manual/manual-usuario.pdf')" class="text-white" download>
+                {{ __('Manual de Usuario') }}
+            </x-responsive-nav-link>
         </div>
 
         <div class="pt-4 pb-1 border-t border-gray-700">

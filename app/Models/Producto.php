@@ -18,5 +18,6 @@ class Producto extends Model
     'profit_margin',
     'final_currency',
     'final_price',
+    'user_id',
 ];
 }
