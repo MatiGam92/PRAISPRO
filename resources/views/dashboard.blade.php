@@ -1,66 +1,51 @@
-<?php
+<x-app-layout>
 
-// NOTA IMPORTANTE: Si usas Livewire 3 (el estándar actual),
-// el namespace correcto DEBERÍA ser 'App\Livewire'
-// En versiones antiguas (Livewire 2), a veces es 'App\Http\Livewire'
-// Por favor, verifica tu versión de Livewire y ajusta el namespace si es necesario.
-// Si el componente no funciona, cambia App\Http\Livewire a App\Livewire
+    {{-- Contenedor principal: ocupa todo el alto disponible entre navbar y footer --}}
+    <div class="flex-1 flex items-center justify-center px-4 py-6">
 
-namespace App\Http\Livewire; // 🚨 ¡ATENCIÓN! Si usas Livewire 3, probablemente esto es App\Livewire
+        <div class="max-w-xl w-full bg-black/90 backdrop-blur-md p-8 rounded-lg shadow-2xl">
 
-use Livewire\Component;
-use Illuminate\Support\Facades\Http;
+            <div class="flex flex-col items-center space-y-8">
 
-class DollarRate extends Component
-{
-    // Las propiedades se inicializan a null para que Blade las encuentre inmediatamente.
-    public $rate = null;
-    public $lastUpdated = null;
+                {{-- Cuadro del Precio del Dólar --}}
+                <div class="w-full p-6 bg-gray-700/90 shadow-xl rounded-lg border border-black">
+                    <h3 class="text-xl font-bold text-white mb-4 text-center">
+                        💵 Precio Actual del Dólar
+                    </h3>
 
-    /**
-     * Se ejecuta cuando el componente se inicializa.
-     */
-    public function mount()
-    {
-        // Llamamos a fetchRate para cargar los datos apenas se monte el componente.
-        $this->fetchRate();
-    }
+                    {{-- Aquí se muestra el dólar mediante Livewire --}}
+                    @livewire('dollar-rate')
 
-    /**
-     * Obtiene la tasa de cambio actual desde una API externa.
-     */
-    public function fetchRate()
-    {
-        // Usamos un bloque try-catch para manejar errores de conexión o de la API
-        try {
-            $response = Http::timeout(5)->get('https://api.exchangerate.host/latest?base=USD&symbols=ARS');
+                </div>
 
-            if ($response->successful()) {
-                $data = $response->json();
-                // Verificación de que el índice 'ARS' existe en 'rates'
-                if (isset($data['rates']['ARS'])) {
-                    // Formateamos la tasa con dos decimales para mejor visualización
-                    $this->rate = number_format($data['rates']['ARS'], 2);
-                    $this->lastUpdated = now()->setTimezone('America/Argentina/Buenos_Aires')->format('H:i:s');
-                } else {
-                    // Log o manejo de error si el símbolo no está presente
-                    \Log::warning('Símbolo ARS no encontrado en la respuesta de la API.');
-                }
-            } else {
-                // Manejo de errores de HTTP (ej: 404, 500)
-                \Log::error('Error al consultar la API de tipo de cambio: ' . $response->status());
-            }
-        } catch (\Exception $e) {
-            // Manejo de errores de conexión (ej: timeout)
-            \Log::error('Excepción al obtener el tipo de cambio: ' . $e->getMessage());
-        }
-    }
+                {{-- Botones de Navegación --}}
+                <div class="w-full grid grid-cols-1 gap-4">
 
-    /**
-     * Renderiza la vista del componente.
-     */
-    public function render()
-    {
-        return view('livewire.dollar-rate');
-    }
-}
+                    <a href="{{ route('calculator') }}"
+                       class="flex items-center justify-center py-4 bg-green-900 hover:bg-green-600 text-white 
+                              font-bold rounded-lg shadow-lg transition transform hover:scale-[1.03]">
+                        <span class="text-2xl mr-3">🧮</span>
+                        <span>Calculadora de Precios</span>
+                    </a>
+
+                    <a href="{{ route('buscador') }}" 
+                       class="flex items-center justify-center py-4 bg-green-900 hover:bg-green-600 text-white 
+                              font-bold rounded-lg shadow-lg transition transform hover:scale-[1.03]">
+                        <span class="text-2xl mr-3">🔎</span>
+                        <span>Buscador</span>
+                    </a>
+
+                    <a href="{{ route('historial.index') }}" 
+                       class="flex items-center justify-center py-4 bg-green-900 hover:bg-green-600 text-white 
+                              font-bold rounded-lg shadow-lg transition transform hover:scale-[1.03]">
+                        <span class="text-2xl mr-3">📜</span>
+                        <span>Historial</span>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</x-app-layout>
