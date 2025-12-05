@@ -33,11 +33,11 @@
 
                 <!-- Integrante 1 -->
                 <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center text-center transition duration-300 hover:bg-gray-700/50">
-                    <img src="https://placehold.co/120x120/374151/ffffff?text=EM" 
+                    <img src="{{ asset('images/Estefi.jpeg') }}" 
                          alt="Estefanía Montiel"
                          class="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-green-500/80 mb-4">
                     <h2 class="text-xl font-bold text-white mb-1">Estefanía Montiel</h2>
-                    <p class="text-gray-400 text-sm italic mb-2">Full-Stack & DBA</p>
+                    <p class="text-gray-400 text-sm italic mb-2">Full-Stack & PM</p>
                     <div class="flex justify-center space-x-3">
                         <a href="#" target="_blank" class="text-gray-400 hover:text-green-500">
                             <i class="fab fa-linkedin text-lg"></i>
@@ -53,7 +53,7 @@
 
                 <!-- Integrante 2 -->
                 <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center text-center transition duration-300 hover:bg-gray-700/50">
-                    <img src="https://placehold.co/120x120/374151/ffffff?text=LO" 
+                    <img src="{{ asset('images/Lucas.jpeg') }}" 
                          alt="Lucas Oviedo"
                          class="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-green-500/80 mb-4">
                     <h2 class="text-xl font-bold text-white mb-1">Lucas Oviedo</h2>
@@ -77,7 +77,7 @@
                          alt="Matías Gamarra"
                          class="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-green-500/80 mb-4">
                     <h2 class="text-xl font-bold text-white mb-1">Matías Gamarra</h2>
-                    <p class="text-gray-400 text-sm italic mb-2">Full-Stack & PM</p>
+                    <p class="text-gray-400 text-sm italic mb-2">Full-Stack & SM</p>
                     <div class="flex justify-center space-x-3">
                         <a href="#" target="_blank" class="text-gray-400 hover:text-green-500">
                             <i class="fab fa-linkedin text-lg"></i>

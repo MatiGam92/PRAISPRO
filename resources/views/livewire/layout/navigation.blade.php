@@ -42,10 +42,6 @@ new class extends Component
                         {{ __('Historial') }}
                     </x-nav-link>
 
-                    {{-- Nuevo enlace: Manual de Usuario --}}
-                    <x-nav-link :href="url('/manual/manual-usuario.pdf')" target="_blank" class="text-white hover:text-green-700" download>
-                        {{ __('Manual de Usuario') }}
-                    </x-nav-link>
                 </div>
             </div>
 
