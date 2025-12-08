@@ -69,37 +69,76 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div>
+<div class="bg-gray-600 p-8 sm:p-10 rounded-xl shadow-2xl border-b-4 border-[#0E3D28] text-white">
+
+    {{-- Mensaje de éxito --}}
+    @if (session('status'))
+        <div class="mb-4 p-3 bg-green-700 text-white rounded-md">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <form wire:submit="resetPassword">
-        <!-- Email Address -->
+
+        {{-- Token oculto --}}
+        <input type="hidden" wire:model="token">
+
+        {{-- Email oculto (importante cuando viene en el enlace del correo) --}}
+        <input type="hidden" wire:model="email">
+
+        {{-- Email visible solo si querés que el usuario lo vea --}}
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="email" :value="__('Email')" class="text-white" />
+            <x-text-input
+                wire:model="email"
+                id="email"
+                type="email"
+                name="email"
+                required autofocus autocomplete="username"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-700"
+            />
+            <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400" />
         </div>
 
-        <!-- Password -->
+        {{-- Password --}}
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-label for="password" :value="__('Nuevo Password')" class="text-white" />
+
+            <x-text-input
+                wire:model="password"
+                id="password"
+                type="password"
+                name="password"
+                required autocomplete="new-password"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-700"
+            />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400" />
         </div>
 
-        <!-- Confirm Password -->
+        {{-- Confirm Password --}}
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar Password')" class="text-white" />
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                          type="password"
-                          name="password_confirmation" required autocomplete="new-password" />
+            <x-text-input
+                wire:model="password_confirmation"
+                id="password_confirmation"
+                type="password"
+                name="password_confirmation"
+                required autocomplete="new-password"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-700"
+            />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-red-400" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
+        <div class="flex items-center justify-end mt-6">
+            <button
+                type="submit"
+                class="px-5 py-3 bg-[#0E3D28] hover:bg-green-700 text-white font-semibold rounded-md shadow-lg transition transform hover:scale-105">
+                {{ __('Restablecer Password') }}
+            </button>
         </div>
     </form>
 </div>
+

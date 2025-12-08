@@ -14,94 +14,114 @@ new class extends Component
 
         $this->redirect('/', navigate: true);
     }
-}; ?>
+};
+?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" class="bg-black/90 border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
+            {{-- Logo y enlaces principales --}}
+            <div class="flex items-center">
+                {{-- Logo PRAISPRO --}}
+                <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center">
+                    <x-praispro-logo class="h-16 w-auto" />
+                </a>
+
+                {{-- Enlaces de navegación principales --}}
+                <div class="hidden space-x-8 sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('calculator')" :active="request()->routeIs('calculator')" wire:navigate class="text-white hover:text-green-700">
+                        {{ __('Calculadora') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-700">
+                        {{ __('Buscador') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white hover:text-green-700">
+                        {{ __('Historial') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
+            {{-- Botón de Cierre de Sesión (Escritorio) --}}
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </button>
-                    </x-slot>
-                </x-dropdown>
+                <button wire:click="logout" 
+                        title="{{ __('Cerrar sesión') }}"
+                        class="p-2 bg-green-900 hover:bg-red-700 text-white rounded-full 
+                               shadow-md transition duration-150 ease-in-out focus:outline-none 
+                               focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#1A1A1D]">
+                    {{-- Icono de Lucide (logout) --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                </button>
             </div>
 
-            <!-- Hamburger -->
+            {{-- Botón móvil para abrir el menú --}}
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 
+                                hover:text-white hover:bg-[#2A2A2D] focus:outline-none 
+                                focus:bg-[#2A2A2D] focus:text-white transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': open, 'inline-flex': ! open}"
+                              class="inline-flex"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open}"
+                              class="hidden"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    {{-- Menú responsive --}}
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-[#1A1A1D]">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate class="text-white">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('calculator')" :active="request()->routeIs('calculator')" wire:navigate class="text-white">
+                {{ __('Calculadora') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white">
+                {{ __('Buscador') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white">
+                {{ __('Historial') }}
+            </x-responsive-nav-link>
+
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-700">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                {{-- Nombre de usuario y email (Móvil) --}}
+                <div class="font-medium text-base text-white"
+                     x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
+                     x-text="name"
+                     x-on:profile-updated.window="name = $event.detail.name"></div>
+                <div class="font-medium text-sm text-gray-400">{{ auth()->user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
+                {{-- Botón de Cerrar Sesión (Móvil) --}}
                 <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
+                    <x-responsive-nav-link class="text-white hover:bg-[#2A2A2D]">
+                        {{ __('Cerrar sesión') }}
                     </x-responsive-nav-link>
                 </button>
             </div>
