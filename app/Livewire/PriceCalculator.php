@@ -7,12 +7,12 @@ use Livewire\WithFileUploads;
 use App\Models\Producto;
 use App\Services\ExchangeRateService;
 
+//Extensión de la clase
 class PriceCalculator extends Component
 {
     use WithFileUploads;
-
+//Atributos del componente
     public $producto_id;
-
     public $name;
     public $photo;
     public $description;
@@ -44,7 +44,7 @@ class PriceCalculator extends Component
 
     public function mount($producto = null)
     {
-        // Cargar cotizaciones
+        // Cargar cotizaciones de la api
         $this->exchangeRates = (new ExchangeRateService())->getRates();
 
         // Modo edición: precargar datos
@@ -67,6 +67,7 @@ class PriceCalculator extends Component
         }
     }
 
+    //Ejecuta y guarda los cálculos
     public function calculateAndSave()
     {
         $this->validate();
@@ -133,6 +134,7 @@ class PriceCalculator extends Component
         return redirect()->route('historial.index');
     }
 
+    //Muestra las operaciones ejecutadas por este componente.
     public function render()
     {
         return view('livewire.price-calculator')
