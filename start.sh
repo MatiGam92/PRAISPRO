@@ -23,7 +23,12 @@ php artisan view:cache
 
 # 4. Ejecutar migraciones (Opcional, pero recomendado si tienes DB)
 echo "Ejecutando migraciones en PostgreSQL..."
-php artisan migrate:fresh --force
+# Opción A: Intentar limpiar y migrar. 
+# Usamos || true para que si falla el borrado, el script no se detenga.
+php artisan migrate:fresh --force || true
+
+# Opción B: Si las tablas ya están ahí, simplemente intentar marcar las migraciones como hechas
+php artisan migrate --force --strategy=fast-forward || php artisan migrate --force
 
 # 5. Iniciar el servidor
 echo "Servidor listo. Iniciando Laravel en puerto 8080..."
