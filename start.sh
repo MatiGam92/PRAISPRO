@@ -25,6 +25,7 @@ php artisan view:cache
 echo "Ejecutando migraciones en PostgreSQL..."
 php artisan migrate:fresh --force
 
+chmod -R 755 public/build
 # 5. Iniciar el servidor
 echo "Servidor listo. Iniciando Laravel en puerto 8080..."
 php artisan serve --host=0.0.0.0 --port=8080
