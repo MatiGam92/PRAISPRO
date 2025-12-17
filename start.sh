@@ -1,19 +1,29 @@
 #!/bin/sh
 set -e
 
-# Crear el archivo .env copiándolo del example si no existe
+# 1. Crear un archivo .env vacío si no existe. 
+# Esto evita que 'php artisan' falle buscando el archivo físico.
 if [ ! -f .env ]; then
-    echo "Creando archivo .env desde .env.production..."
-    cp .env.production .env
+    echo "Creando archivo .env físico para compatibilidad..."
+    touch .env
 fi
 
-# Ahora sí, generamos la llave
-echo "Generando APP_KEY..."
-php artisan key:generate --force
+# 2. Generar APP_KEY solo si no está definida en el panel de Render
+if [ -z "$APP_KEY" ]; then
+    echo "Generando APP_KEY local..."
+    php artisan key:generate --force
+fi
 
-# ... el resto de tu script (migraciones, cache, etc.)
-echo "Optimizando caché..."
+# 3. Optimizar Laravel
+echo "Optimizando caché y configuraciones..."
+php artisan storage:link --force || true
 php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
-echo "Iniciando Laravel..."
+# 4. Ejecutar migraciones (Opcional, pero recomendado si tienes DB)
+# php artisan migrate --force
+
+# 5. Iniciar el servidor
+echo "Servidor listo. Iniciando Laravel en puerto 8080..."
 php artisan serve --host=0.0.0.0 --port=8080
