@@ -1,25 +1,40 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
-# Extensiones necesarias
+# Instalar dependencias del sistema y extensiones de PHP
 RUN apt-get update && apt-get install -y \
-    git unzip libpng-dev libonig-dev libxml2-dev libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql
+    git \
+    unzip \
+    libpq-dev \
+    libonig-dev \
+    libzip-dev \
+    zip \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip gd
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar el proyecto
 WORKDIR /var/www/html
+
+# Copiar el proyecto
 COPY . .
 
-# Instalar dependencias
-RUN composer install --no-dev --optimize-autoloader
+# Instalar dependencias de Laravel
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Permisos
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Permisos para carpetas de escritura
+RUN chown -R www-data:www-data storage bootstrap/cache && \
+    chmod -R 775 storage bootstrap/cache
 
-# Exponer puerto
+# Preparar el script de arranque
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Exponer el puerto que usaremos en Render
 EXPOSE 8080
 
-# Arrancar PHP-FPM mediante start.sh
-ENTRYPOINT ["./start.sh"]
+# Usar la ruta absoluta al script para evitar el error 128
+ENTRYPOINT ["/usr/local/bin/start.sh"]
