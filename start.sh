@@ -23,7 +23,7 @@ php artisan view:cache
 
 # 4. Ejecutar migraciones (Opcional, pero recomendado si tienes DB)
 echo "Ejecutando migraciones en PostgreSQL..."
-php artisan migrate --force
+php artisan migrate:fresh --force
 
 # 5. Iniciar el servidor
 echo "Servidor listo. Iniciando Laravel en puerto 8080..."
