@@ -1,8 +1,14 @@
+# Etapa 1: Compilar activos de JS con Node
+FROM node:20-slim AS node-builder
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# Etapa 2: Configurar el entorno PHP final
 FROM php:8.4-fpm
 
-# 1. Instalar dependencias del sistema esenciales
+# Instalar dependencias del sistema y extensiones de PHP
 RUN apt-get update && apt-get install -y \
-    curl \
     git \
     unzip \
     libpq-dev \
@@ -11,16 +17,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     libpng-dev \
     libjpeg62-turbo-dev \
-    libfreetype6-dev
-
-# 2. Instalar Node.js de forma segura (Usando una versión estable actual)
-RUN mkdir -p /etc/apt/keyrings \
-    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
-    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
-    && apt-get update && apt-get install nodejs -y
-
-# 3. Instalar extensiones de PHP
-RUN docker-php-ext-configure gd --with-jpeg --with-freetype \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip gd
 
 # Instalar Composer
@@ -31,22 +29,21 @@ WORKDIR /var/www/html
 # Copiar el proyecto
 COPY . .
 
-# Instalar dependencias de Laravel
+# TRAER LOS ARCHIVOS COMPILADOS DESDE LA ETAPA DE NODE
+# Esto soluciona el error del manifest.json de Vite
+COPY --from=node-builder /app/public/build ./public/build
+
+# Instalar dependencias de PHP
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Instalar dependencias de JS y compilar activos con Vite
-RUN npm install
-RUN npm run build
-
-# Permisos para carpetas de escritura
+# Permisos
 RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
 
-# Preparar el script de arranque
+# Script de arranque
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-# Exponer el puerto
 EXPOSE 8080
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
