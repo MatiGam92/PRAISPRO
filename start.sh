@@ -1,23 +1,19 @@
 #!/bin/sh
 set -e
 
-# Si no hay APP_KEY en el entorno, la generamos
-if [ -z "$APP_KEY" ]; then
-    echo "Generando APP_KEY..."
-    php artisan key:generate --force
+# Crear el archivo .env copiándolo del example si no existe
+if [ ! -f .env ]; then
+    echo "Creando archivo .env desde .env.example..."
+    cp .env.example .env
 fi
 
+# Ahora sí, generamos la llave
+echo "Generando APP_KEY..."
+php artisan key:generate --force
+
+# ... el resto de tu script (migraciones, cache, etc.)
 echo "Optimizando caché..."
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
-echo "Creando storage link..."
-php artisan storage:link --force || true
-
-echo "Ejecutando migraciones..."
-# Esto fallará si la DB no está configurada aún en Render, pero es normal
-php artisan migrate --force
-
-echo "Iniciando Laravel en puerto 8080..."
+echo "Iniciando Laravel..."
 php artisan serve --host=0.0.0.0 --port=8080
