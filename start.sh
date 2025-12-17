@@ -3,8 +3,8 @@ set -e
 
 # Crear el archivo .env copiándolo del example si no existe
 if [ ! -f .env ]; then
-    echo "Creando archivo .env desde .env.example..."
-    cp .env.example .env
+    echo "Creando archivo .env desde .env.production..."
+    cp .env.production .env
 fi
 
 # Ahora sí, generamos la llave
