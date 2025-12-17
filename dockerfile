@@ -1,8 +1,8 @@
 FROM php:8.4-fpm
 
-# Instalar dependencias del sistema y extensiones de PHP
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \ apt-get install -y nodejs
-    apt-get update && apt-get install -y \
+# Instalar dependencias del sistema, Node.js y extensiones de PHP
+RUN apt-get update && apt-get install -y \
+    curl \
     git \
     unzip \
     libpq-dev \
@@ -12,6 +12,8 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \ apt-get install
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    && curl -sL https://nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip gd
 
@@ -38,8 +40,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache && \
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-# Exponer el puerto que usaremos en Render
+# Exponer el puerto
 EXPOSE 8080
 
-# Usar la ruta absoluta al script para evitar el error 128
 ENTRYPOINT ["/usr/local/bin/start.sh"]
