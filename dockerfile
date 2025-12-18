@@ -33,6 +33,9 @@ COPY . .
 # Esto soluciona el error del manifest.json de Vite
 COPY --from=node-builder /app/public/build ./public/build
 
+# ... después de COPY --from=node-builder ...
+RUN php artisan assets:link || true
+
 # Instalar dependencias de PHP
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
