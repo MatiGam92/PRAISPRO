@@ -9,32 +9,45 @@ class Buscador extends Component
 {
     public $query = '';
     public $resultados = [];
+    public $buscando = false;
 
-    // Este método se ejecuta automáticamente cada vez que cambia "query"
+    // Sugerencias en tiempo real
     public function updatedQuery()
     {
         if (strlen($this->query) > 1) {
-            $this->resultados = Producto::where('name', 'like', '%' . $this->query . '%')
-                ->orderBy('name', 'asc')
-                ->take(10) // máximo 10 sugerencias
+            $this->resultados = Producto::where('user_id', auth()->id())
+                ->where('name', 'like', '%' . $this->query . '%')
+                ->orderBy('name')
+                ->take(6)
                 ->get();
+
+            $this->buscando = true;
         } else {
-            $this->resultados = [];
+            $this->resetBusqueda();
         }
     }
 
-    // Este se usa cuando el usuario presiona el botón Buscar
+    // Botón Buscar
     public function buscar()
     {
         if (!empty($this->query)) {
-            $this->resultados = Producto::where('name', 'like', '%' . $this->query . '%')
-                ->orderBy('name', 'asc')
+            $this->resultados = Producto::where('user_id', auth()->id())
+                ->where('name', 'like', '%' . $this->query . '%')
+                ->orderBy('created_at', 'desc')
                 ->get();
+
+            $this->buscando = true;
         }
+    }
+
+    public function resetBusqueda()
+    {
+        $this->resultados = [];
+        $this->buscando = false;
     }
 
     public function render()
     {
-        return view('livewire.buscador')->layout('layouts.app');
+        return view('livewire.buscador');
     }
 }

@@ -34,9 +34,9 @@ new class extends Component
                         {{ __('Calculadora') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-700">
+                    {{--<x-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white hover:text-green-700">
                         {{ __('Buscador') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
 
                     <x-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white hover:text-green-700">
                         {{ __('Historial') }}
@@ -97,9 +97,9 @@ new class extends Component
                 {{ __('Calculadora') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white">
+            {{--<x-responsive-nav-link :href="route('buscador')" :active="request()->routeIs('buscador')" wire:navigate class="text-white">
                 {{ __('Buscador') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link>--}}
 
             <x-responsive-nav-link :href="route('historial.index')" :active="request()->routeIs('historial.index')" wire:navigate class="text-white">
                 {{ __('Historial') }}

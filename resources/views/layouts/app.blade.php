@@ -19,7 +19,7 @@
 <body class="font-sans antialiased relative">
 
     <!-- Fondo -->
-    <div class="fixed inset-0 bg-cover bg-center -z-20"
+    <div class="fixed inset-0 bg-cover bg-center -z-10"
         style="background-image: url('/images/ferre.avif');">
     </div>
 
@@ -31,12 +31,12 @@
     </div>
 
     <!-- Contenido general SIN SCROLL -->
-    <div class="min-h-[calc(100vh-128px)] flex flex-col">
+    <div class="min-h-[calc(100vh-160px)] flex flex-col">
 
 
         @if (isset($header))
             <header class="bg-white/80 backdrop-blur-md shadow z-20 relative">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>

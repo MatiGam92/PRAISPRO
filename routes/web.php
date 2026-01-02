@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
         ->name('calculator');
 
     // Buscador
-    Route::get('/buscador', Buscador::class)->name('buscador');
+    //Route::get('/buscador', Buscador::class)->name('buscador');
 
     // Historial index
     Route::get('/historial', function () {
@@ -50,10 +50,14 @@ Route::middleware('auth')->group(function () {
         return view('historial.index', compact('productos'));
     })->name('historial.index');
 
-    // Mostrar producto individual
     Route::get('/historial/{producto}', function (Producto $producto) {
-        return view('historial.show', compact('producto'));
-    })->name('historial.show');
+
+    abort_unless($producto->user_id === auth()->id(), 403);
+
+    return view('historial.show', compact('producto'));
+
+})->name('historial.show');
+
 
     // Editar producto → redirige a Livewire
     Route::get('/historial/{id}/editar', [HistorialController::class, 'edit'])

@@ -29,7 +29,7 @@
         <div class="absolute inset-0 bg-red-900/90"></div>
 
         <!-- CONTENIDO -->
-        <div class="relative z-10 w-full flex flex-col sm:justify-center items-center pt-18 sm:pt-0">
+        <div class="relative z-10 w-full flex flex-col sm:justify-center items-center pt-16 sm:pt-0">
 
             <!-- LOGO MÁS GRANDE -->
             <div class="flex justify-center mb-6">
@@ -39,7 +39,7 @@
             </div>
 
             <!-- TARJETA DEL FORM -->
-            <div class="w-full sm:max-w-md px-6 py-4 bg-black/90 shadow-2xl sm:rounded-lg">
+            <div class="w-full sm:max-w-md px-6 py-12 bg-black/90 shadow-2xl sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>

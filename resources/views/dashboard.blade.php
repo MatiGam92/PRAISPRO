@@ -28,12 +28,12 @@
                         <span>Calculadora de Precios</span>
                     </a>
 
-                    <a href="{{ route('buscador') }}" 
+                    {{--<a href="{{ route('buscador') }}" 
                        class="flex items-center justify-center py-4 bg-green-900 hover:bg-green-600 text-white 
                               font-bold rounded-lg shadow-lg transition transform hover:scale-[1.03]">
                         <span class="text-2xl mr-3">🔎</span>
                         <span>Buscador</span>
-                    </a>
+                    </a>--}}
 
                     <a href="{{ route('historial.index') }}" 
                        class="flex items-center justify-center py-4 bg-green-900 hover:bg-green-600 text-white 
