@@ -52,14 +52,14 @@ new #[Layout('layouts.guest')] class extends Component
 
 }; ?>
 
-<div class="bg-gray-600 p-8 sm:p-10 rounded-xl shadow-2xl border-b-4 border-[#0E3D28] text-white">
+<div class="bg-[#1f0f0b]/95 p-8 sm:p-10 rounded-xl shadow-2xl  text-white">
 
-    <div class="mb-4 text-sm text-gray-300">
+    <div class="mb-6 text-base text-gray-300 leading-relaxed max-w-md">
         {{ __('¿Olvidaste tu contraseña? No hay problema. Solamente ingresá tu email y te enviaremos un enlace para que puedas restablecerla.') }}
     </div>
 
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4 text-green-400" :status="session('status')" />
+    <x-auth-session-status class="mb-4 text-green-400" :status="session('status')" /> 
 
     <form wire:submit="sendPasswordResetLink">
 
@@ -83,7 +83,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="flex items-center justify-end mt-6">
             <button
                 type="submit"
-                class="px-5 py-3 bg-[#0E3D28] hover:bg-green-700 text-white font-semibold rounded-md shadow-lg transition transform hover:scale-105">
+                class="px-12 py-3 bg-red-700 hover:bg-red-500 hover:shadow-red-500/40 text-white font-semibold rounded-md shadow-lg transition-all duration-200 transform hover:scale-105">
                 {{ __('Enviar enlace de recuperación') }}
             </button>
         </div>

@@ -12,13 +12,13 @@
     @foreach ($productos as $producto)
 
         <a href="{{ route('historial.show', $producto) }}"
-           class="bg-gray-900 rounded-xl overflow-hidden
-                  border border-gray-800 shadow
+           class="bg-[#1f0f0b]/95 rounded-xl overflow-hidden
+                  border border-red-500 
                   hover:shadow-lg hover:scale-[1.02]
                   transition transform">
 
             {{-- Imagen --}}
-            <div class="h-40 bg-gray-800 flex items-center justify-center overflow-hidden">
+            <div class="h-40 bg-[#5f0f0f] flex items-center justify-center overflow-hidden">
                 @if ($producto->photo)
                     <img
                         src="{{ asset('storage/' . $producto->photo) }}"
@@ -38,9 +38,9 @@
                     {{ $producto->name }}
                 </h3>
 
-                <p class="text-green-400 font-bold text-lg">
+                <p class="text-orange-400 font-bold text-lg">
                     {{ number_format($producto->final_price, 2) }}
-                    <span class="text-sm text-green-300">
+                    <span class="text-sm text-orange-300">
                         {{ $producto->final_currency }}
                     </span>
                 </p>

@@ -3,68 +3,75 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bienvenido a PRAISPRO</title>
+
+    <title>Bienvenido a PRICEPRO</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
+
+        /* Contorno rojo oscuro para el logo */
+        .logo-outline {
+            -webkit-text-stroke: 2px #7f1d1d;
+        }
     </style>
 </head>
-<body class="antialiased relative">
+<body class="antialiased relative overflow-hidden">
 
-    {{-- Fondo e overlay --}}
-    <div class="fixed inset-0 bg-cover bg-center -z-20" style="background-image: url('/images/ferre.avif');"></div>
-    <div class="fixed inset-0 bg-red-800/90 -z-10"></div>
+    {{-- Fondo --}}
+    <div
+        class="fixed inset-0 bg-cover bg-center -z-20"
+        style="background-image: url('/images/fondo.jpg');">
+    </div>
+
+    {{-- Overlay muy oscuro (rojo/marrón) --}}
+    <div class="fixed inset-0 bg-red-900/95 -z-10">
 
     {{-- Contenedor principal --}}
-    <div class="min-h-[calc(100vh-64px)] flex flex-col items-center justify-center p-4 pt-20 pb-20 relative z-10">
+    <div class="min-h-screen flex flex-col items-center justify-start px-4 pt-16 pb-24 relative z-10">
 
         {{-- Header --}}
-        <header class="text-center mb-8">
-            <h1 class="text-5xl sm:text-6xl font-extrabold text-white flex flex-col items-center gap-4">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-3xl font-extrabold text-white flex flex-col items-center gap-6">
                 Bienvenido a
-                <x-praispro-logo class="h-20 w-auto" />
+                <x-pricepro-logo size="md" />
             </h1>
-            <p class="text-xl text-gray-200 mt-2">
+
+            <p class="text-xl text-gray-300 mt-4 max-w-xl mx-auto">
                 Tu solución profesional para el cálculo de precios.
             </p>
         </header>
 
-        {{-- Contenedor negro central --}}
-        <div class="bg-black/90 p-8 sm:p-10 rounded-xl shadow-2xl max-w-lg w-full text-center mx-4 border-b-4 border-green-800">
-            <h1 class="text-3xl sm:text-3xl font-extrabold text-white mb-8">
-                ¡ Accedé y empezá a calcular tus precios !
-            </h1>
+        {{-- Card central --}}
+        <div
+            class="bg-[#1f0f0b]/95 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl
+                    max-w-lg w-full text-center border border-red-500">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-8">
+                ¡Accedé y empezá a calcular tus precios!
+            </h2>
 
             {{-- Botón --}}
-            <a href="{{ url('/login') }}"
-               class="inline-block px-10 py-4 bg-[#0E3D28] hover:bg-green-700 text-white text-xl font-semibold rounded-lg transition duration-300 shadow-xl transform hover:scale-105">
+            <a
+                href="{{ url('/login') }}"
+                class="inline-block px-12 py-4
+                       bg-red-700
+                       hover:bg-red-500
+                       hover:shadow-red-500/40
+                       text-white text-xl font-semibold rounded-lg
+                       transition-all duration-200
+                       shadow-xl transform hover:scale-105">
                 Acceder
             </a>
-
-            {{-- Nuevo Link "Manual de usuario" --}}
-            <div class="mt-4">
-                <a href="{{ asset('manual/Manual de usuario - PRAISPRO.pdf') }}"
-                    target="_blank"
-                    class="text-gray-400 hover:text-green-500 text-base font-medium transition duration-300 underline">
-                    Manual de usuario
-                </a>
-            </div>
-            
         </div>
-
     </div>
 
-    {{-- Footer igual a app.blade --}}
-    <footer class="fixed bottom-0 left-0 right-0 p-3 bg-black/90 text-center z-20">
+    {{-- Footer --}}
+    <footer class="fixed bottom-0 left-0 right-0 p-3 bg-[#1f0f0b]/95 text-center z-20">
         <p class="text-sm text-gray-400">
-            PRAISPRO® - Todos los derechos reservados | Desarrollado por
-            <a href="{{ url('/ia-team') }}"
-               class="font-bold text-gray-200 hover:text-green-800 transition duration-300">
-                IA-Team
-            </a>
+            PRICEPRO® — Todos los derechos reservados.
         </p>
     </footer>
 

@@ -12,13 +12,13 @@ use App\Models\Producto;
 // --------------------
 Route::get('/', function () {
     return Auth::check()
-        ? redirect()->route('dashboard')
+        ? redirect()->route('historial.index')
         : view('welcome');
 });
 
 Route::get('/welcome', function () {
     return Auth::check()
-        ? redirect()->route('dashboard')
+        ? redirect()->route('historial.index')
         : view('welcome');
 });
 
@@ -29,10 +29,11 @@ Route::view('/ia-team', 'ia-team');
 // --------------------
 Route::middleware('auth')->group(function () {
 
-    // Dashboard
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-    //Route::get('/calcular-precio', PriceCalculator::class)
+    Route::get('/conversor', function () {
+    return view('converter');
+    })->name('converter');
+//Route::get('/calcular-precio', PriceCalculator::class)
     //->name('calculator.create');
 
     // Calculadora (crear o editar)
