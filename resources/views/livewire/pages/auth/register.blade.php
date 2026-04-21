@@ -36,7 +36,7 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div class="bg-gray-600 p-8 sm:p-5 rounded-xl shadow-2xl border-b-4 border-[#0E3D28] text-white">
+<div class="bg-[#1f0f0b]/95 p-8 sm:p-5 rounded-xl shadow-2xl  text-white">
 
     <form wire:submit="register">
 
@@ -56,7 +56,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <!-- Email -->
-        <div class="mt-4">
+        <div class="mt-2">
             <x-input-label for="email" :value="__('Email')" class="text-white" />
             <x-text-input
                 wire:model="email"
@@ -71,7 +71,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
+        <div class="mt-2">
             <x-input-label for="password" :value="__('Contraseña')" class="text-white" />
 
             <x-text-input
@@ -87,7 +87,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
+        <div class="mt-2">
             <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" class="text-white" />
 
             <x-text-input
@@ -111,8 +111,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             <button
                 type="submit"
-                class="px-5 py-3 bg-[#0E3D28] hover:bg-green-700 text-white font-semibold rounded-md shadow-lg
-                       transition transform hover:scale-105">
+                class="px-5 py-3 bg-red-700 hover:bg-red-500 hover:shadow-red-500/40 text-white font-semibold rounded-md shadow-lg transition-all duration-200 transform hover:scale-105">
                 {{ __('Registrarme') }}
             </button>
         </div>

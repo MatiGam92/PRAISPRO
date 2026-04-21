@@ -19,8 +19,8 @@
 <body class="font-sans antialiased relative">
 
     <!-- Fondo -->
-    <div class="fixed inset-0 bg-cover bg-center -z-20"
-        style="background-image: url('/images/ferre.avif');">
+    <div class="fixed inset-0 bg-cover bg-center -z-10"
+        style="background-image: url('/images/fondo.jpg');">
     </div>
 
     <div class="fixed inset-0 bg-red-900/90 -z-10"></div>
@@ -31,12 +31,12 @@
     </div>
 
     <!-- Contenido general SIN SCROLL -->
-    <div class="min-h-[calc(100vh-128px)] flex flex-col">
+    <div class="min-h-[calc(100vh-140px)] flex flex-col">
 
 
         @if (isset($header))
             <header class="bg-white/80 backdrop-blur-md shadow z-20 relative">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
@@ -52,13 +52,9 @@
     @livewireScripts
 
     <!-- Footer Fijo -->
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black/90 text-center z-20">
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-[#1f0f0b]/95 text-center z-20">
         <p class="text-sm text-gray-400">
-            PRAISPRO® - Todos los derechos reservados | Desarrollado por
-            <a href="{{ url('/ia-team') }}"
-               class="font-bold text-gray-200 hover:text-green-800 transition duration-300">
-                IA-Team
-            </a>
+            PRICEPRO® - Todos los derechos reservados.
         </p>
     </footer>
 
