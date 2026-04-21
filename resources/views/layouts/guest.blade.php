@@ -22,37 +22,33 @@
 
         <!-- Imagen de fondo -->
         <div class="absolute inset-0 bg-cover bg-center"
-             style="background-image: url('/images/ferre.avif');">
+             style="background-image: url('/images/fondo.jpg');">
         </div>
 
         <!-- Capa roja con opacidad -->
-        <div class="absolute inset-0 bg-red-900/90"></div>
+        <div class="absolute inset-0 bg-red-900/95"></div>
 
         <!-- CONTENIDO -->
-        <div class="relative z-10 w-full flex flex-col sm:justify-center items-center pt-18 sm:pt-0">
+        <div class="relative z-10 w-full flex flex-col sm:justify-center items-center pt-16 sm:pt-0">
 
             <!-- LOGO MÁS GRANDE -->
-            <div class="flex justify-center mb-6">
+            <div class="flex justify-center mb-2">
                 <a href="/" wire:navigate>
-                    <x-praispro-logo class="w-40 h-auto" />
+                    <x-pricepro-logo class="w-40 h-auto" />
                 </a>
             </div>
 
             <!-- TARJETA DEL FORM -->
-            <div class="w-full sm:max-w-md px-6 py-4 bg-black/90 shadow-2xl sm:rounded-lg">
+            <div class="w-full sm:max-w-md px-6 py-1 bg-[#1f0f0b]/95 shadow-2xl sm:rounded-lg border border-red-500">
                 {{ $slot }}
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-black/90 text-center z-20">
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-[#1f0f0b]/95 text-center z-20">
         <p class="text-sm text-gray-400">
-            PRAISPRO® - Todos los derechos reservados | Desarrollado por
-            <a href="{{ url('/ia-team') }}"
-               class="font-bold text-gray-200 hover:text-green-800 transition duration-300">
-                IA-Team
-            </a>
+            PRICEPRO® - Todos los derechos reservados.
         </p>
     </footer>
 

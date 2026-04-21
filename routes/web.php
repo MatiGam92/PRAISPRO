@@ -12,13 +12,13 @@ use App\Models\Producto;
 // --------------------
 Route::get('/', function () {
     return Auth::check()
-        ? redirect()->route('dashboard')
+        ? redirect()->route('historial.index')
         : view('welcome');
 });
 
 Route::get('/welcome', function () {
     return Auth::check()
-        ? redirect()->route('dashboard')
+        ? redirect()->route('historial.index')
         : view('welcome');
 });
 
@@ -29,10 +29,11 @@ Route::view('/ia-team', 'ia-team');
 // --------------------
 Route::middleware('auth')->group(function () {
 
-    // Dashboard
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-    //Route::get('/calcular-precio', PriceCalculator::class)
+    Route::get('/conversor', function () {
+    return view('converter');
+    })->name('converter');
+//Route::get('/calcular-precio', PriceCalculator::class)
     //->name('calculator.create');
 
     // Calculadora (crear o editar)
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
         ->name('calculator');
 
     // Buscador
-    Route::get('/buscador', Buscador::class)->name('buscador');
+    //Route::get('/buscador', Buscador::class)->name('buscador');
 
     // Historial index
     Route::get('/historial', function () {
@@ -50,10 +51,14 @@ Route::middleware('auth')->group(function () {
         return view('historial.index', compact('productos'));
     })->name('historial.index');
 
-    // Mostrar producto individual
     Route::get('/historial/{producto}', function (Producto $producto) {
-        return view('historial.show', compact('producto'));
-    })->name('historial.show');
+
+    abort_unless($producto->user_id === auth()->id(), 403);
+
+    return view('historial.show', compact('producto'));
+
+})->name('historial.show');
+
 
     // Editar producto → redirige a Livewire
     Route::get('/historial/{id}/editar', [HistorialController::class, 'edit'])

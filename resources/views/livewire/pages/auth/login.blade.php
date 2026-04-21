@@ -20,14 +20,14 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('historial.index', absolute: false), navigate: true);
     }
 }; ?>
 
-<div class="bg-gray-700 p-8 sm:p-10 rounded-xl shadow-2xl border-b-4 border-[#0E3D28] text-white">
+<div class="bg-[#1f0f0b]/95 p-8 sm:p-8 rounded-xl shadow-2xl  text-white">
 
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4 text-green-400" :status="session('status')" />
+    <x-auth-session-status class="mb-4 text-red-500" :status="session('status')" />
 
     <form wire:submit="login">
 
@@ -40,7 +40,7 @@ new #[Layout('layouts.guest')] class extends Component
                 type="email"
                 name="email"
                 required autofocus autocomplete="username"
-                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-700"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-500"
             />
             <x-input-error :messages="$errors->get('form.email')" class="mt-2 text-red-400" />
         </div>
@@ -55,7 +55,7 @@ new #[Layout('layouts.guest')] class extends Component
                 type="password"
                 name="password"
                 required autocomplete="current-password"
-                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-700"
+                class="block mt-1 w-full bg-white text-black border border-black rounded-md focus:ring-red-700 focus:border-red-500"
             />
 
             <x-input-error :messages="$errors->get('form.password')" class="mt-2 text-red-400" />
@@ -69,7 +69,7 @@ new #[Layout('layouts.guest')] class extends Component
                     id="remember"
                     type="checkbox"
                     name="remember"
-                    class="rounded border-gray-600 bg-black text-[#0E3D28] focus:ring-[#0E3D28]"
+                    class="rounded border-red-500 bg-white text-red-500 focus:ring-red-500"
                 >
                 <span class="ms-2 text-sm text-white">{{ __('Recordarme') }}</span>
             </label>
@@ -78,20 +78,20 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="flex items-center justify-between mt-6">
 
             <a href="{{ route('register') }}" wire:navigate
-                   class="underline text-sm font-semibold text-white hover:text-red-700 transition">
+                    class="underline text-sm font-semibold text-white hover:text-red-500 transition">
                     {{ __('¿No estás registrado?') }}
                 </a>
             
             @if (Route::has('password.request'))
                 <a href="{{ route('password.request') }}" wire:navigate
-                   class="underline text-sm font-semibold text-white hover:text-red-700 transition">
+                    class="underline text-sm font-semibold text-white hover:text-red-500 transition">
                     {{ __('¿Olvidaste tu contraseña?') }}
                 </a>
             @endif
 
             <button
                 type="submit"
-                class="px-5 py-3 bg-[#0E3D28] hover:bg-green-700 text-white font-semibold rounded-md shadow-lg transition transform hover:scale-105">
+                class="px-5 py-3 bg-red-700 hover:bg-red-500 hover:shadow-red-500/40 text-white font-semibold rounded-md shadow-lg transition-all duration-200 transform hover:scale-105">
                 {{ __('Ingresar') }}
             </button>
         </div>

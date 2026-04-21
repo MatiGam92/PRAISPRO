@@ -13,6 +13,8 @@ class PriceCalculator extends Component
     use WithFileUploads;
 //Atributos del componente
     public $producto_id;
+    public $resultado;
+
     public $name;
     public $photo;
     public $description;
@@ -131,7 +133,10 @@ class PriceCalculator extends Component
             $producto->save();
         }
 
-        return redirect()->route('historial.index');
+        $this->resultado = $producto;
+        // feedback visual
+        session()->flash('success', 'Cálculo realizado y guardado correctamente.');
+
     }
 
     //Muestra las operaciones ejecutadas por este componente.
