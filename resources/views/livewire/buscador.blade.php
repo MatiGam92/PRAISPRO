@@ -6,7 +6,7 @@
             wire:model.debounce.400ms="query"
             placeholder="Buscar cálculo..."
             class="flex-1 rounded-lg px-3 py-2 text-sm
-                   bg-[#1f0f0b] text-white
+                   bg-[#1f0f0b] text-white border-red-500
                    focus:outline-none focus:ring-2 focus:ring-red-500"
         >
 
