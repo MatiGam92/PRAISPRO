@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: pricepro
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    preDeployCommand: php artisan migrate --force
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: PRICEPRO
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: ASSET_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: pricepro-db
+          property: connectionString
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: info
+      - key: SESSION_DRIVER
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: BROADCAST_CONNECTION
+        value: log
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: EXCHANGE_RATE_API_URL
+        value: https://api.exchangerate-api.com/v4/latest/ARS
+
+databases:
+  - name: pricepro-db
+    plan: free
+    databaseName: pricepro
+    user: pricepro
