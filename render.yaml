@@ -4,7 +4,6 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
-    preDeployCommand: php artisan migrate --force
     healthCheckPath: /
     envVars:
       - key: APP_NAME
