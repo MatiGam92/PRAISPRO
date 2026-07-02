@@ -6,20 +6,11 @@ COPY resources ./resources
 COPY vite.config.js postcss.config.js tailwind.config.js ./
 RUN npm run build
 
-FROM composer:2 AS vendor
-WORKDIR /app
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --no-scripts
-COPY . .
-RUN composer dump-autoload --optimize
-
-FROM php:8.3-apache
-
-ENV APP_ENV=production \
-    PORT=10000
+FROM php:8.3-apache AS base
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        git \
         libicu-dev \
         libpq-dev \
         libzip-dev \
@@ -27,6 +18,19 @@ RUN apt-get update \
     && docker-php-ext-install intl pdo_mysql pdo_pgsql zip \
     && a2enmod rewrite headers \
     && rm -rf /var/lib/apt/lists/*
+
+FROM base AS vendor
+WORKDIR /app
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --no-scripts
+COPY . .
+RUN composer dump-autoload --optimize
+
+FROM base
+
+ENV APP_ENV=production \
+    PORT=10000
 
 WORKDIR /var/www/html
 
