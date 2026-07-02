@@ -13,15 +13,15 @@
         COLUMNA IZQUIERDA: FORM
     ========================= --}}
     <form wire:submit.prevent="calculateAndSave"
-          enctype="multipart/form-data"
-          class="lg:col-span-2 space-y-3">
+        enctype="multipart/form-data"
+        class="lg:col-span-2 space-y-3">
 
         {{-- Nombre --}}
         <div>
             <label class="text-gray-300 text-xs">Nombre del Producto</label>
             <input type="text" wire:model="name"
                 class="w-full mt-1 rounded-md bg-[#4f0f0b] text-white border-red-500
-                       px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 text-sm">
+                    px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 text-sm">
         </div>
 
         {{-- Foto --}}
@@ -29,8 +29,8 @@
             <label class="text-gray-300 text-xs">Foto (Opcional)</label>
             <input type="file" wire:model="photo"
                 class="w-full mt-1 text-red-500 text-sm
-                       file:bg-red-700 hover:file:bg-red-500 hover:file:shadow-red-500/40 file:text-white font-semibold file:rounded-md shadow-lg transition-all duration-200 transform hover:scale-105
-                       file:px-3 file:py-1 ">
+                    file:bg-red-700 hover:file:bg-red-500 hover:file:shadow-red-500/40 file:text-white font-semibold file:rounded-md shadow-lg transition-all duration-200 transform hover:scale-105
+                    file:px-3 file:py-1 ">
         </div>
 
         {{-- Descripción --}}
@@ -38,7 +38,7 @@
             <label class="text-gray-300 text-xs">Descripción</label>
             <textarea wire:model="description" rows="3"
                 class="w-full mt-1 rounded-md bg-[#4f0f0b] text-white border-red-500
-                       px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"></textarea>
+                    px-2 py-1 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"></textarea>
         </div>
 
         {{-- Precio + moneda --}}
@@ -154,11 +154,11 @@
 
                 <div class="mt-6 flex gap-3">
                     <a href="{{ route('historial.show', $resultado->id) }}"
-                       class="px-4 py-2 rounded-md bg-red-800 hover:bg-red-700 text-white text-sm">
+                        class="px-4 py-2 rounded-md bg-red-800 hover:bg-red-700 text-white text-sm">
                         Ver detalle
                     </a>
                     <a href="{{ route('historial.index') }}"
-                       class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white text-sm">
+                        class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white text-sm">
                         Historial
                     </a>
                 </div>
