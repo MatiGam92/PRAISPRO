@@ -100,7 +100,7 @@
     </p>
 
     <div class="flex justify-center mt-2">
-        <x-praispro-logo class="h-10 w-auto" />
+        <x-pricepro-logo class="h-10 w-auto" />
     </div>
 </div>
 
