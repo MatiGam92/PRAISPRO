@@ -6,14 +6,18 @@
 
     <title>Bienvenido a PRICEPRO</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
 
-        /* Contorno rojo oscuro para el logo */
         .logo-outline {
             -webkit-text-stroke: 2px #7f1d1d;
         }
@@ -74,6 +78,6 @@
             PRICEPRO® — Todos los derechos reservados.
         </p>
     </footer>
-
+    </div>
 </body>
 </html>
