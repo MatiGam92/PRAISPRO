@@ -31,6 +31,19 @@
                 class="w-full mt-1 text-red-500 text-sm
                     file:bg-red-700 hover:file:bg-red-500 hover:file:shadow-red-500/40 file:text-white font-semibold file:rounded-md shadow-lg transition-all duration-200 transform hover:scale-105
                     file:px-3 file:py-1 ">
+            <div wire:loading wire:target="photo" class="text-red-400 text-xs mt-1">
+            Subiendo imagen...
+            </div>
+            @error('photo')
+        <span class="text-red-500 text-xs">{{ $message }}</span>
+        @enderror
+
+        @if ($photo)
+            <img src="{{ $photo->temporaryUrl() }}" class="mt-2 h-24 rounded-md border border-red-500">
+        @elseif ($existingPhoto)
+            <img src="{{ asset('storage/' . $existingPhoto) }}" class="mt-2 h-24 rounded-md border border-red-500">
+        @endif
+
         </div>
 
         {{-- Descripción --}}
